@@ -1,0 +1,39 @@
+{% extends "base.html" %} <!-- Hereda del template base.html -->
+
+{% block content %}
+
+<h1 class="text-center">IMPORTAR ARCHIVO EXCEL</h1>
+
+<!-- Form para importar el archivo excel -->
+
+<form action="test" method="post" class="col-md-4 m-auto"  enctype="multipart/form-data">
+
+      {% csrf_token %}
+
+      <div class="form-group">
+        <label class="m-2" for="exampleInputEmail1">SELECCIONE EL ARCHIVO EXCEL</label>
+        <input type="file" class="form-control"  id="exampleInputEmail1" aria-describedby="emailHelp" name="excel" accept=".xlsx" required>
+      </div>
+
+      <button type="submit" class="btn btn-primary btn-md btn-block">Importar Excel</button>
+
+</form>
+
+<br><br/>
+
+<!-- Si hay un error en la importacion de los datos del excel -->
+
+{% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+            <div class="alert alert-warning alert-dismissible fade show m-auto text-justify" role="alert">
+                <strong>  {{message}} </strong>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        {% endfor %}
+    </ul>
+{% endif %}
+
+{% endblock %}

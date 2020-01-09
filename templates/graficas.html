@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block content %}
+
+<h1>Graficas que datos</h1>
+
+<br><br/>
+
+ <form action="graficas" method="post" class="col-md-4 m-auto">
+
+    {% csrf_token %}
+
+    <div class="form-group">
+            <label for="exampleInputEmail1">Nombre de usuario</label>
+            <input type="text" class="form-control"  aria-describedby="emailHelp" name="username" required>
+            <small id="emailHelp" class="form-text text-muted"></small>
+      </div>
+        
+
+    <button type="submit" class="btn btn-primary btn-md btn-block">Entrar</button>
+
+</form>
+
+<br><br/>
+
+<img src="r" width="600px" />
+
+{% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+            <div class="alert alert-warning alert-dismissible fade show m-auto text-justify" role="alert">
+                <strong>  {{message}} </strong>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        {% endfor %}
+    </ul>
+{% endif %}
+
+{% endblock %}
