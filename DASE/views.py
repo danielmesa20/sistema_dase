@@ -16,6 +16,20 @@ def home (request):
     return render(request, 'home.html')
 
 def busqueda(request):
+    
+    if request.method == 'POST':
+
+        #Recuperar los datos
+        f1 = request.POST['filtro1']
+
+        #d = request.POST['dato']
+        #f2 = request.POST['filtro2']
+
+        if f1 == "Nombre":    #Comprobar si el nombre ingresado tiene numeros
+            print("g")
+        elif f1 == "Cedula":  #Comprobar si la cedula ingresada tiene letras o es negativo
+            print("f")
+
     return render(request, 'busqueda.html')
 
 #IMPORTAR DATOS DEL ARCHIVO DE EXCEL A LA BASE DE DATOS

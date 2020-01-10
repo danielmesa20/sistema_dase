@@ -4,25 +4,37 @@
 
 {% block content %}
 
-<select class="mdb-select md-form colorful-select dropdown-primary" multiple searchable="Search here..">
-  <option value="" disabled selected>Choose your country</option>
-  <option value="1">USA</option>
-  <option value="2">Germany</option>
-  <option value="3">France</option>
-  <option value="3">Poland</option>
-  <option value="3">Japan</option>
-</select>
-<label class="mdb-main-label">Label example</label>
+<form action="busqueda" method="post" class="col-md-5 m-auto">
 
-<select class="mdb-select" multiple searchable="Search here..">
-  <optgroup label="team 1">
-    <option value="1">Option 1</option>
-    <option value="2">Option 2</option>
-  </optgroup>
-  <optgroup label="team 2">
-    <option value="3">Option 3</option>
-    <option value="4">Option 4</option>
-  </optgroup>
-</select>
+  {% csrf_token %}
+
+  <div class="form-row align-items-center">
+
+  <div class="form-group col-auto my-1">
+      <select class="form-control custom-select mr-sm-2" name="filtro1" id="filtro1" onchange="console.log(this.value)" >
+        <option selected>Nombre</option>
+        <option value="Cedula">Cedula</option>
+        <option value="Carrera">Carrera</option>
+        <option value="Beneficio">Tipo de Beneficio</option>
+        <option value="Trimestre">Trimestre</option>
+      </select>
+  </div>
+
+  <div class="form-group col-auto my-1">
+      <select class="form-control custom-select mr-sm-2" name="filtro2" id="filtro2" onchange="console.log(this.value)" disabled ></select>
+  </div>
+
+    <div class="col-auto my-1">
+      <input type="text" class="form-control" name="dato" id="dato" maxlength="100" required>
+    </div>
+    
+    <div class="col-auto my-1">
+      <button type="submit" class="btn btn-primary">Buscar</button>
+    </div>
+
+  </div>
+
+</form>
+
 
 {% endblock %}
