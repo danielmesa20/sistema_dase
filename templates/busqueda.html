@@ -4,14 +4,16 @@
 
 {% block content %}
 
+<div class="divc">
+
 <form action="busqueda" method="POST" class="col-md m-auto ">
 
   {% csrf_token %}
 
-  <div class="form-row align-items-center">
+  <div class="form-row justify-content-center">
 
   <div class="col-auto my-1">
-    <input type="text" class="form-control" name="data" id="data" maxlength="100" placeholder="Ej: Nombre, cedula">
+    <input type="text" class="form-control" name="data" id="data" maxlength="100" placeholder="Ej: Nombre/Cedula">
   </div>
 
   <div class="form-group col-auto my-1">
@@ -49,31 +51,38 @@
 
 </form>
 
+</div>
+
 {% comment 'comentario' %}
   Luego que se realiza una busqueda se muestra una lista de resultados
 {% endcomment %}
 
 {% if  search %}
-    <div class="card-group">
-    {% for e in search  %}
-      <div class="card">
-        <div class="card-body">
-          <h5 class="card-title">{{e.cedula}}</h5>
-          <p class="card-text">{{e.nombre}}</p>
-          <p class="card-text">{{e.tipo_beneficio}}</p>
-          <p class="card-text">{{e.carrera}}</p>
-        </div>
-        <div class="col-auto my-1">
-           <a class="nav-link" href="/DASE/more_info/{{e.cedula}}">more info <span class="sr-only">(current)</span></a>
-        </div>
-      </div>
-      {% endfor %}
-    </div>
-  
-
+      <div class="contenedor">
+          <div class="container">
+          <div class="row">
+              <div class="col-sm">Nombre</div>
+              <div class="col-sm">Cedula</div>
+              <div class="col-sm">Carrera</div>
+              <div class="col-sm">Tipo de beneficio</div>
+          </div>
+          {% for e in search  %}
+            <div class="row">
+              <div class="col-sm">{{e.cedula}}</div>
+              <div class="col-sm"> {{e.nombre}}</div>
+              <div class="col-sm">{{e.carrera}}</div>
+              <div class="col-sm">{{e.tipo_beneficio}}</div>
+              <a href="/DASE/more_info/{{e.cedula}}">+</a>
+            </div>
+            {% endfor %}
+          </div>
+      <div>
 {% else %}
-  <h1>No se encontraron resultados</h1>
-
+   {% if messages %}
+        {% for message in messages %}
+            <h1 class="mensajes">{{message}}</h1>
+        {% endfor %}
+    {% endif %}
 {% endif %}
 
 
