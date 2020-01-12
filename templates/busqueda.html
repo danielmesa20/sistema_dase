@@ -4,37 +4,77 @@
 
 {% block content %}
 
-<form action="busqueda" method="post" class="col-md-5 m-auto">
+<form action="busqueda" method="POST" class="col-md m-auto ">
 
   {% csrf_token %}
 
   <div class="form-row align-items-center">
 
-  <div class="form-group col-auto my-1">
-      <select class="form-control custom-select mr-sm-2" name="filtro1" id="filtro1" onchange="console.log(this.value)" >
-        <option selected>Nombre</option>
-        <option value="Cedula">Cedula</option>
-        <option value="Carrera">Carrera</option>
-        <option value="Beneficio">Tipo de Beneficio</option>
-        <option value="Trimestre">Trimestre</option>
-      </select>
+  <div class="col-auto my-1">
+    <input type="text" class="form-control" name="data" id="data" maxlength="100" placeholder="Ej: Nombre, cedula">
   </div>
 
   <div class="form-group col-auto my-1">
-      <select class="form-control custom-select mr-sm-2" name="filtro2" id="filtro2" onchange="console.log(this.value)" disabled ></select>
+    <select class="form-control custom-select mr-sm-2" name="select_carrera" id="select_carrera">
+      <option selected value="all">Todas las carreras</option>
+      {% for i in c %}
+        <option value="{{ i.carrera }}">{{ i.carrera }}</option>
+      {% endfor %}  
+    </select>
   </div>
 
-    <div class="col-auto my-1">
-      <input type="text" class="form-control" name="dato" id="dato" maxlength="100" required>
-    </div>
-    
-    <div class="col-auto my-1">
-      <button type="submit" class="btn btn-primary">Buscar</button>
-    </div>
+   <div class="form-group col-auto my-1">
+    <select class="form-control custom-select mr-sm-2" name="select_beneficio" id="select_beneficio">
+      <option selected value="all">Todos los beneficios</option>
+      {% for i in b %}
+        <option value="{{ i.tipo_beneficio }}">{{ i.tipo_beneficio }}</option>
+      {% endfor %}  
+    </select>
+  </div>
+
+  <div class="form-group col-auto my-1">
+    <select class="form-control custom-select mr-sm-2" name="select_trimestre" id="select_trimestre">
+      <option selected value="all">Todos los trimestres</option>
+      {% for i in t %}
+        <option value="{{ i.trimestre }}">{{ i.trimestre }}</option>
+      {% endfor %}  
+    </select>
+  </div>
+
+  <div class="col-auto my-1">
+    <button type="submit" class="btn btn-primary">Buscar</button>
+  </div>
 
   </div>
 
 </form>
+
+{% comment 'comentario' %}
+  Luego que se realiza una busqueda se muestra una lista de resultados
+{% endcomment %}
+
+{% if  search %}
+    <div class="card-group">
+    {% for e in search  %}
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">{{e.cedula}}</h5>
+          <p class="card-text">{{e.nombre}}</p>
+          <p class="card-text">{{e.tipo_beneficio}}</p>
+          <p class="card-text">{{e.carrera}}</p>
+        </div>
+        <div class="col-auto my-1">
+           <a class="nav-link" href="/DASE/more_info/{{e.cedula}}">more info <span class="sr-only">(current)</span></a>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  
+
+{% else %}
+  <h1>No se encontraron resultados</h1>
+
+{% endif %}
 
 
 {% endblock %}

@@ -14,7 +14,9 @@ class beca_excelencia(models.Model):
 class estudiantes(models.Model):
     cedula = models.IntegerField(primary_key=True)
     nombre = models.CharField(max_length=100)
-    tipo_beneficio = models.CharField(max_length=100)
+    tipo_beneficio = models.CharField(max_length=100, default="Nulo")
+    carrera = models.CharField(max_length=100,  default="Nulo")
+    trimestre = models.CharField(max_length=100,  default="Nulo")
 
 #Relacion many to many: aportantes con estudiantes
 class aportantes(models.Model):

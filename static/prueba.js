@@ -1,40 +1,25 @@
-const $f1 = $("#filtro1");
-const $f2 = $("#filtro2");
-const $d = $("#dato");
+//Varibles
+const $s1 = $("#select1");  //Select principal
+const $s2 = $("#select2");  //Select carreras
+const $s3 = $("#select3");  //Select tipos de beneficio
+const $d = $("#data");      // input text
 
-var c = ['Psicologia', 'Ingenieria', 'Economia']
-var b = ['Excelencia','Honor','Desempeño']
-
+/*
 $(document).ready(function(){
 
-    $f1.change(function(){
+    $s1.change(function(){ //Cada vez que la opcion del select "1" cambie
 
-    // Segundo select 
-    if($f1.val() == "Carrera" || $f1.val() == "Beneficio" || $f1.val() == "Trimestre"){     // si una region es seleccionada quitara la propiedad disabled
-     
-      $f2.prop('disabled', false);
+    if($s1.val() == "Carrera" || $s1.val() == "Beneficio" || $s1.val() == "Trimestre"){
 
-      //LLenar el segundo select
+      // El input text deja de ser requerido
+      $d.prop('required',false);
 
-      if($f1.val() == "Carrera"){
-        for(var i=0; i<c.length; i++)
-          filtro2.options[i]= new Option(c[i],c[i]);
-      }else if ($f1.val() == "Beneficio"){
-        for(var i=0; i<b.length; i++)
-          filtro2.options[i]= new Option(b[i],b[i]);
-      }
-      
     }else{
-      $f2.prop('disabled', true);                                                           // si una comuna no esta seleccionada mantendra la propiedad disabled
-    }
-
-    // Text field
-    if($f1.val() == "Nombre" || $f1.val() == "Cedula"){        //si una region es seleccionada quitara la propiedad disabled
-      $d.prop('disabled', false);
-    }else{
-      $d.prop('disabled', true);           //si una comuna no esta seleccionada mantendra la propiedad disabled
-      dato.value="";
+      $d.prop('required',true);
+      $s2.prop("disabled", "true");
+      $s3.prop("disabled", "true");
     }
 
   });
 });
+*/
