@@ -2,10 +2,30 @@
 
 {% block content %}
 
-<h1 class="titulo">Información del estudiante</h1>
+<h1 class="titulo">INFORMACIÓN DEL ESTUDIANTE</h1>
 
-{% for i in estudiante  %}
-    <h2>{{i.cedula}}</h2>
-{% endfor %}
+    <div class="contenedor">
+        <div class="container">
+
+        {% for i in estudiante  %}
+            <div class="row">
+                <div class="col-sm">Nombre</div>
+                <div class="col-sm">{{i.nombre}}</div>
+            </div>
+            <div class="row">
+                <div class="col-sm">Cedula</div>
+                <div class="col-sm">{{i.cedula}}</div>
+            </div>
+             <div class="row">
+                <div class="col-sm">Beneficio</div>
+                <div class="col-sm">{{i.tipo_beneficio}}</div>
+            </div>
+            <div class="row">
+                <div class="col-sm">Carrera</div>
+                <div class="col-sm">{{i.carrera}}</div>
+            </div>
+            
+        {% endfor %}
+    </div>
 
 {% endblock  %}

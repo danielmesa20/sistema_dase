@@ -4,6 +4,9 @@
 
 {% block content %}
 
+<h1 class="titulo">BÚSQUEDA DE DATOS</h1>
+
+
 <div class="divc">
 
 <form action="busqueda" method="POST" class="col-md m-auto ">
@@ -13,33 +16,43 @@
   <div class="form-row justify-content-center">
 
   <div class="col-auto my-1">
-    <input type="text" class="form-control" name="data" id="data" maxlength="100" placeholder="Ej: Nombre/Cedula">
+    <input type="text" class="form-control" name="data" id="data" maxlength="100" placeholder="Ej: Nombre / Cedula">
   </div>
 
-  <div class="form-group col-auto my-1">
-    <select class="form-control custom-select mr-sm-2" name="select_carrera" id="select_carrera">
-      <option selected value="all">Todas las carreras</option>
-      {% for i in c %}
-        <option value="{{ i.carrera }}">{{ i.carrera }}</option>
-      {% endfor %}  
+  <div class="col-auto my-1">
+    <select class="selectpicker"  name="select_carrera" id="select_carrera" multiple="multiple"  multiple data-selected-text-format="count>3"  actionsBox required>
+        <option selected="true" value="all">Todas las carreras</option>
+        {% for i in c %}
+        <option  value="{{ i.carrera }}">{{ i.carrera }}</option>
+        {% endfor %}  
     </select>
   </div>
 
-   <div class="form-group col-auto my-1">
-    <select class="form-control custom-select mr-sm-2" name="select_beneficio" id="select_beneficio">
-      <option selected value="all">Todos los beneficios</option>
-      {% for i in b %}
-        <option value="{{ i.tipo_beneficio }}">{{ i.tipo_beneficio }}</option>
-      {% endfor %}  
+  <div class="col-auto my-1">
+    <select class="selectpicker"  name="select_beneficio" id="select_beneficio" multiple data-selected-text-format="count>3"  required>
+        <option selected  value="all">Todos los beneficios</option>
+        {% for i in b %}
+          <option value="{{ i.tipo_beneficio }}">{{ i.tipo_beneficio }}</option>
+        {% endfor %} 
     </select>
   </div>
 
-  <div class="form-group col-auto my-1">
-    <select class="form-control custom-select mr-sm-2" name="select_trimestre" id="select_trimestre">
-      <option selected value="all">Todos los trimestres</option>
-      {% for i in t %}
+  <div class="col-auto my-1">
+    <select class="selectpicker" name="select_trimestre" id="select_trimestre" multiple data-selected-text-format="count>3"  required>
+        <option selected value="all">Todos los trimestres</option>
+        {% for i in t %}
         <option value="{{ i.trimestre }}">{{ i.trimestre }}</option>
       {% endfor %}  
+    </select>
+  </div>
+
+  <div class="form-group col-auto my-1">
+    <select class="form-control custom-select mr-sm-2" name="select_order" id="select_order">
+      <option selected value="cedula">Ordernar por:</option>
+      <option value="nombre">Nombre</option>
+      <option value="carrera">Carrera</option>
+      <option value="trimestre">Trimestre</option>
+      <option value="tipo_beneficio">Beneficio</option>
     </select>
   </div>
 
@@ -60,7 +73,7 @@
 {% if  search %}
       <div class="contenedor">
           <div class="container">
-          <div class="row">
+          <div class="row aux">
               <div class="col-sm">Nombre</div>
               <div class="col-sm">Cedula</div>
               <div class="col-sm">Carrera</div>

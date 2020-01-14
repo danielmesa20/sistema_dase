@@ -1,18 +1,18 @@
 from django.shortcuts import render, redirect
 
-#from django.db.models import Q  #Usar objectos "Q"
+#Usar objectos "Q"
+from django.db.models import Q 
 
-#Importar archivo excel con pandas
+#Leer archivo excel 
 import pandas as pd
 
 #Mostrar mensajes en pantalla
 from django.contrib import messages
 
 #Models
-from DASE.models import beca_excelencia
 from DASE.models import estudiantes
 
-#Verificacion de datos
+#Verificacion de datos del excel
 import math
 
 def home (request):
@@ -20,105 +20,49 @@ def home (request):
 
 def busqueda(request):
 
-    #Query con los valores de los select
+    # Query para solicitar los valores que contendran  los select
     c = estudiantes.objects.values('carrera').distinct()
     b = estudiantes.objects.values('tipo_beneficio').distinct()
     t = estudiantes.objects.values('trimestre').distinct()
 
     if request.method == 'POST':
 
-        #Recuperar los valores ingresados
+        # Recuperar los valores ingresados
         input_text = request.POST['data']
-        s1 = request.POST['select_carrera']
-        s2 = request.POST['select_beneficio']
-        s3 = request.POST['select_trimestre']
+        s1 = request.POST.getlist('select_carrera')
+        s2 = request.POST.getlist('select_beneficio')
+        s3 = request.POST.getlist('select_trimestre')
+        s4 = request.POST['select_order']
 
-        #Verificacion 
-        aux = []
+        #Inicializando variable donde se guardará el query
+        query = Q()
     
-        #Verificacion 
-        aux = []
+        # Construcción del query a partir de las opciones ingresadas por el usuario
 
-        if not input_text  and s1  == "all" and s2  == "all" and s3  == "all":          #Buscar todos los estudiantes
-            datos = estudiantes.objects.all()
+        input_text_clean = input_text.split(' ')
+       
+        if (input_text):
+            for i in input_text.split(" "):
+                if (i.isdigit()):
+                    query |= Q(cedula = i) 
+                elif (not i.isdigit() and i != ''):
+                    query |= Q(nombre__icontains = i)
+                
+        if (not "all" in s1):
+            query &= Q(carrera__in = s1)
+        if (not "all" in s2):
+            query &= Q(tipo_beneficio__in = s2)
+        if (not "all" in s3):
+            query &= Q(trimestre__in = s3)
 
-        elif input_text and input_text.isdigit() == False:                      
-                if s1 == "all" and s2 == "all" and s3 == "all":                         #Buscar solo por el nombre
-                    datos = estudiantes.objects.filter(nombre__icontains = input_text)
+        print(query)
 
-                elif s1 != "all" and s2 == "all" and s3 == "all":                       #Buscar por el nombre y la carrera
-                    datos = estudiantes.objects.filter(nombre__icontains = input_text, carrera = s1)
-                    
-                elif s1 != "all" and s2 != "all" and s3 == "all":                       #Buscar por el nombre, la carrera, tipo de beneficio
-                    datos = estudiantes.objects.filter(nombre__icontains = input_text ,carrera = s1, tipo_beneficio = s2)
-                    
-                elif s1 != "all" and s2 != "all" and s3 != "all":                       #Buscar por el nombre, la carrera, tipo de beneficio y trimestre
-                    datos = estudiantes.objects.filter(nombre__icontains = input_text, carrera = s1, tipo_beneficio = s2, trimestre = s3)
-                    
-                elif s1 == "all" and s2 != "all" and s3 == "all":                       #Buscar por el nombre y el tipo de beneficio 
-                    datos = estudiantes.objects.filter(nombre__icontains = input_text, tipo_beneficio = s2)
+        # Solicitando los datos a la base de datos
+        datos = estudiantes.objects.filter(query).order_by(s4)
 
-                elif s1 != "all" and s2 == "all" and s3 != "all":                       #Buscar por el nombre, la carrera y  por el trimestre
-                    datos = estudiantes.objects.filter(nombre__icontains = input_text, carrera = s1, trimestre = s3)
-
-                elif s1 == "all" and s2 != "all" and s3 != "all":                       #Buscar por el nombre, tipo de beneficio y por el trimestre
-                    datos = estudiantes.objects.filter(nombre__icontains = input_text, tipo_beneficio = s2, trimestre = s3)
-
-                elif s1 == "all" and s2 == "all" and s3 != "all":                       #Buscar por el nombre y el trimestre
-                    datos = estudiantes.objects.filter(nombre__icontains = input_text, trimestre = s3)
-
-        elif input_text and input_text.isdigit():
-
-                input_text = int(input_text)                                            #Pasar de string a integer
-
-                if s1 == "all" and s2 == "all" and s3 == "all":                         #Buscar solo por el cedula
-                    datos = estudiantes.objects.filter(cedula = input_text)
-                    
-                elif s1 != "all" and s2 == "all" and s3 == "all":                       #Buscar por la cedula y la carrera
-                    datos = estudiantes.objects.filter(cedula = input_text, carrera = s1)
-
-                elif s1 != "all" and s2 != "all" and s3 == "all":                       #Buscar por la cedula, la carrera, tipo de beneficio
-                    datos = estudiantes.objects.filter(cedula = input_text, carrera = s1, tipo_beneficio = s2)
-
-                elif s1 != "all" and s2 != "all" and s3 != "all":                       #Buscar por la cedula, la carrera, tipo de beneficio y trimestre
-                    datos = estudiantes.objects.filter(cedula = input_text, carrera = s1, tipo_beneficio = s2 ,trimestre = s3)
-
-                elif s1 == "all" and s2 != "all" and s3 == "all":                       #Buscar por la cedula y el tipo de beneficio 
-                    datos = estudiantes.objects.filter(cedula = input_text, tipo_beneficio = s2)
-
-                elif s1 != "all" and s2 == "all" and s3 != "all":                       #Buscar por la cedula, la carrera y  por el trimestre
-                    datos = estudiantes.objects.filter(cedula = input_text, carrera = s1, trimestre = s3)
-
-                elif s1 == "all" and s2 != "all" and s3 != "all":                       #Buscar por la cedula, tipo de beneficio y por el trimestre
-                    datos = estudiantes.objects.filter(cedula = input_text, tipo_beneficio = s2, trimestre = s3)
-
-                elif s1 == "all" and s2 == "all" and s3 != "all":                       #Buscar por la cedula y el trimestre
-                    datos = estudiantes.objects.filter(cedula = input_text, trimestre = s3)
-
-        else:
-                if s1 != "all" and s2 == "all" and s3 == "all":                         #Buscar por la carrera
-                    datos = estudiantes.objects.filter(carrera = s1)
-
-                elif s1 != "all" and s2 != "all" and s3 == "all":                       #Buscar por la carrera y el tipo de beneficio
-                    datos = estudiantes.objects.filter(carrera = s1, tipo_beneficio = s2)
-
-                elif s1 != "all" and s2 != "all" and s3 != "all":                       #Buscar la carrera, tipo de beneficio y trimestre
-                    datos = estudiantes.objects.filter(carrera = s1, tipo_beneficio = s2, trimestre = s3)
-
-                elif s1 == "all" and s2 != "all" and s3 == "all":                       #Buscar por el tipo de beneficio 
-                    datos = estudiantes.objects.filter(tipo_beneficio = s2)
-
-                elif s1 != "all" and s2 == "all" and s3 != "all":                       #Buscar por la carrera y  por el trimestre
-                    datos = estudiantes.objects.filter(carrera = s1, trimestre = s3)
-
-                elif s1 == "all" and s2 != "all" and s3 != "all":                       #Buscar por el tipo de beneficio y por el trimestre
-                    datos = estudiantes.objects.filter(tipo_beneficio = s2, trimestre = s3)
-
-                elif s1 == "all" and s2 == "all" and s3 != "all":                       #Buscar por  el trimestre
-                    datos = estudiantes.objects.filter(trimestre = s3)
-
+        # Si no se encentran resultados se muestra un mensaje al usuario
         if not datos:
-             messages.info(request,"No hay resultados que coincidan con su búsqueda")
+            messages.info(request,"No hay resultados que coincidan con su búsqueda")
             
         return render(request, 'busqueda.html', { "c": c , "b": b, "t": t, "search": datos})
 

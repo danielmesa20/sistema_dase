@@ -5,38 +5,79 @@
 
 {% block content %}
 
-<h1 class="titulo">Analisis de datos</h1>
+<h1 class="titulo">ANÁLISIS DE DATOS</h1>
+
+<form action="graficas" method="POST" class="col-md m-auto ">
+
+  {% csrf_token %}
+
+  <div class="form-row justify-content-center">
+
+   <div class="form-group col-auto my-1">
+    <select class="form-control custom-select mr-sm-2" name="sagrupar" id="sagrupar">
+      <option selected value="3">Selecione</option>
+	  <option value="Carrera">Carrera</option>
+	  <option value="Beneficio">Tipo de Beneficio</option>
+	  <option value="Estud2iantes"># materias inscritas</option>    
+	  <option value="Estudiantes">Indice academico</option> 
+	  <option value="1">Departamento</option>
+	  <option value="alwl">Trimestre</option>
+    </select>
+  </div>
+
+  <div class="col-auto my-1">
+    <select class="selectpicker"  data-actions-box="true" name="filtro" id="filtro" data-header="Filtrado opcional" multiple>
+      <option selected value="all">Seleccionado</option>
+	  <option value="c">sa</option>
+	  <option value="b">as</option>
+    </select>
+  </div>
+
+   <div class="col-auto my-1">
+    <input type="text" class="form-control" name="titulo" id="titulo" maxlength="100" placeholder="Titulo del gráfico">
+  </div>
+
+
+  <div class="col-auto my-1">
+    <button type="submit" class="btn btn-primary">Ver</button>
+  </div>
+
+  </div>
+
+</form>
 
 {% if values %}
 
-	{% load googlecharts %}
-	{# container #}
-	<div id="out"></div>
+	<div class="cgraficas">
 
-	{% googlecharts %}
-		{# named data and options can be reused #}
-		{% data values "out_data" %}
-			{% col "string" "Name" %}"{{ val }}"{% endcol %}
-			{% col "number" "Value" %}{{ val }}{% endcol %}
-		{% enddata %}
-		{# you can also use global javascript variables here, #}
-		{# and call functions #}
-		{% options "out_options" %}
-			kind: "PieChart",
-			options: {
-				title: 'Grafica de prueba',
-				width: 600,
-				height: 500,
-				is3D: true,
-			}
-		{% endoptions %}
-		{# chart is assembled from container, data and options #}
-		{% graph "out" "out_data" "out_options" %}
-	{% endgooglecharts %}
+		{% load googlecharts %}
 
+		{# container #}
+		<div id="out"></div>
 
-{% else %}
-	<p class="text-center">Esperando los datos</p>
+		{% googlecharts %}
+			{# named data and options can be reused #}
+			{% data values "out_data" %}
+				{% col "string" "Name" %}"{{ val }}"{% endcol %}
+				{% col "number" "Value" %}{{ val }}{% endcol %}
+			{% enddata %}
+			{# you can also use global javascript variables here, #}
+			{# and call functions #}
+			{% options "out_options" %}
+				kind: "PieChart",
+				options: {
+					title: '{{titulo}}',
+					width: 600,
+					height: 500,
+					is3D: {{dimension}},
+				}
+			{% endoptions %}
+			{# chart is assembled from container, data and options #}
+			{% graph "out" "out_data" "out_options" %}
+		{% endgooglecharts %}
+
+	</div>
+
 {% endif %}
 
 {% endblock content %}

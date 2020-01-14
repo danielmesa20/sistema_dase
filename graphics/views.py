@@ -9,28 +9,36 @@ from django.db.models import Sum
 
 def graficas(request):
 
-    datos  = buscar_datos()
-    
     if request.method == 'POST':
-        #return render(request, 'google.html', {'values': [['foo', 32], ['bar', 64], ['baz', 96]] })
-        return render(request, 'google.html', {'values': datos})
-    else:
-        return render(request, 'google.html', {'values': datos})
 
+        # VARIABLE PARA GUARDAR LA INFORMACION A GRAFICAR
+        v = []
 
-def buscar_datos():
+        s1 = request.POST.getlist('filtro')
+       
+        # SOLICITANDO LOS DATOS A LA BASE DE DATOS
 
-    # VARIABLE PARA GUARDAR LA INFORMACION A GRAFICAR
-    v = []
-
-    # SOLUCITANDO LOS DATOS A LA BASE DE DATOS
-
-    # SELECT carrera, SUM(CEDULA) AS d FROM beca_excelencia GROUP BY carrera
-    data = beca_excelencia.objects.values('carrera').annotate(d=Sum('cedula')) 
-    
-    # GUARDANDO INFORMACION EN LAS VARIABLES
-    for i in data:
-        v.append( [i['carrera'] , i['d'] ] )
+        # SELECT carrera, SUM(CEDULA) AS d FROM beca_excelencia GROUP BY carrera
+        data = beca_excelencia.objects.values('carrera').annotate(d=Sum('cedula')) 
         
-    return (v)
+        # GUARDANDO INFORMACION EN LAS VARIABLES
+        for i in data:
+            v.append( [i['carrera'] , i['d'] ] )
+        
+        datos = v
+
+        #Opciones de la gráfica
+        tipo_grafica = ""
+        titulo = 'titulo enviado'
+        dimension = 'false'
+
+        #return render(request, 'google.html', {'values': [['foo', 32], ['bar', 64], ['baz', 96]] })
+        return render(request, 'google.html', {'values': datos, 'titulo': titulo, 'dimension':dimension})
+
+    else:
+        return render(request, 'google.html')
+
+
+
+    
 
