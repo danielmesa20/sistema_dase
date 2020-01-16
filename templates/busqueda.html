@@ -16,12 +16,11 @@
   <div class="form-row justify-content-center">
 
   <div class="col-auto my-1">
-    <input type="text" class="form-control" name="data" id="data" maxlength="100" placeholder="Ej: Nombre / Cedula">
+    <input type="text" class="form-control" name="data" id="data" maxlength="100" placeholder="Ej: Nombre, Cedula">
   </div>
 
   <div class="col-auto my-1">
-    <select class="selectpicker"  name="select_carrera" id="select_carrera" multiple="multiple"  multiple data-selected-text-format="count>3"  actionsBox required>
-        <option selected="true" value="all">Todas las carreras</option>
+    <select class="selectpicker"  name="select_carrera" id="select_carrera" multiple  data-selected-text-format="count>3"  data-width="fit" data-size="5"  title="Todas las carreras">
         {% for i in c %}
         <option  value="{{ i.carrera }}">{{ i.carrera }}</option>
         {% endfor %}  
@@ -29,8 +28,7 @@
   </div>
 
   <div class="col-auto my-1">
-    <select class="selectpicker"  name="select_beneficio" id="select_beneficio" multiple data-selected-text-format="count>3"  required>
-        <option selected  value="all">Todos los beneficios</option>
+    <select class="selectpicker"  name="select_beneficio" id="select_beneficio" multiple data-selected-text-format="count>3"  data-width="fit" title="Todos los beneficios">
         {% for i in b %}
           <option value="{{ i.tipo_beneficio }}">{{ i.tipo_beneficio }}</option>
         {% endfor %} 
@@ -38,8 +36,7 @@
   </div>
 
   <div class="col-auto my-1">
-    <select class="selectpicker" name="select_trimestre" id="select_trimestre" multiple data-selected-text-format="count>3"  required>
-        <option selected value="all">Todos los trimestres</option>
+    <select class="selectpicker" name="select_trimestre" id="select_trimestre" multiple data-selected-text-format="count>3" data-width="fit" title="Todos los trimestres" >
         {% for i in t %}
         <option value="{{ i.trimestre }}">{{ i.trimestre }}</option>
       {% endfor %}  
@@ -47,8 +44,8 @@
   </div>
 
   <div class="form-group col-auto my-1">
-    <select class="form-control custom-select mr-sm-2" name="select_order" id="select_order">
-      <option selected value="cedula">Ordernar por:</option>
+    <select class="selectpicker" name="select_order" id="select_order" data-selected-text-format="count>3" data-width="fit" title="Ordenar por:">
+      <option value="cedula">Cedula (default)</option>
       <option value="nombre">Nombre</option>
       <option value="carrera">Carrera</option>
       <option value="trimestre">Trimestre</option>

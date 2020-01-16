@@ -39,8 +39,6 @@ def busqueda(request):
     
         # Construcción del query a partir de las opciones ingresadas por el usuario
 
-        input_text_clean = input_text.split(' ')
-       
         if (input_text):
             for i in input_text.split(" "):
                 if (i.isdigit()):
@@ -48,17 +46,20 @@ def busqueda(request):
                 elif (not i.isdigit() and i != ''):
                     query |= Q(nombre__icontains = i)
                 
-        if (not "all" in s1):
+        if (s1):
             query &= Q(carrera__in = s1)
-        if (not "all" in s2):
+        if (s2):
             query &= Q(tipo_beneficio__in = s2)
-        if (not "all" in s3):
+        if (s3):
             query &= Q(trimestre__in = s3)
 
         print(query)
 
         # Solicitando los datos a la base de datos
-        datos = estudiantes.objects.filter(query).order_by(s4)
+        if(s4):
+            datos = estudiantes.objects.filter(query).order_by(s4)
+        else:
+            datos = estudiantes.objects.filter(query).order_by("cedula")
 
         # Si no se encentran resultados se muestra un mensaje al usuario
         if not datos:
