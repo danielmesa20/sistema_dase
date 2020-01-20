@@ -1,23 +1,21 @@
+console.log("entre")
 
 var options = {
   beneficio : ["Excelencia","Honor","Desempeño"],
-  carrera : ["Sistemas","Psicologia","Economia"],
+  carrera : ["ingenieria","Psicologia","Diseño"],
   materias : ["1","2","3","4","5"],
   indice : ["10","11","12"],
   departamento:  ["Ingenieria","Matematicas","Humanidades"],
   trimestre: ["1","2","3"],
 }
 
-const $sc = $("#primary"); 
+/*$(document).ready(function(){
 
-var beneficio = ["Spain","Germany","France"];
-var carrera = ["red","green","blue"];
-
-$(document).ready(function(){
-
-      $('#primary').on('changed.bs.select', function (e, clickedIndex, isSelected, previousValue) {
+      $('#primary').change
 
         var selected = $('#primary').val();
+
+        $('#secondary').prop('disabled',false)
 
         $('#secondary').empty();
 
@@ -29,3 +27,8 @@ $(document).ready(function(){
       
     }); 
 });
+*/
+
+function val() {
+  console.log("hola")
+}

@@ -4,26 +4,29 @@
 
 <h1 class="titulo">INFORMACIÓN DEL ESTUDIANTE</h1>
 
-    <div class="contenedor">
-        <div class="container">
+<div class="divc">
+  <div class="table-striped text-center" >
+    <table class="table table-bordered">
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col">Cedula</th>
+          <th scope="col">Nombre</th>
+          <th scope="col">Carrera</th>
+          <th scope="col">Tipo de beneficio</th>
+        </tr>
+      </thead>
+      <tbody>
         {% for i in estudiante  %}
-            <div class="row">
-                <div class="col-sm">Nombre</div>
-                <div class="col-sm">{{i.nombre}}</div>
-            </div>
-            <div class="row">
-                <div class="col-sm">Cedula</div>
-                <div class="col-sm">{{i.cedula}}</div>
-            </div>
-             <div class="row">
-                <div class="col-sm">Beneficio</div>
-                <div class="col-sm">{{i.tipo_beneficio}}</div>
-            </div>
-            <div class="row">
-                <div class="col-sm">Carrera</div>
-                <div class="col-sm">{{i.carrera}}</div>
-            </div>
+          <tr>
+            <td>{{i.cedula}}</td>
+            <td>{{i.nombre}}</td>
+            <td>{{i.carrera}}</td>
+            <td>{{i.tipo_beneficio}}</td>
+          </tr>
         {% endfor %}
-    </div>
+      </tbody>
+    </table>
+  </div>
+</div>
 
 {% endblock  %}

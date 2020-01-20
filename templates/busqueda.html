@@ -20,7 +20,7 @@
   </div>
 
   <div class="col-auto my-1">
-    <select class="selectpicker"  name="select_carrera" id="select_carrera" multiple  data-selected-text-format="count>3"  data-width="fit" data-size="5"  title="Todas las carreras">
+    <select class="selectpicker"  name="select_carrera" id="select_carrera" multiple  data-selected-text-format="count>2"  data-width="fit" data-size="5"  multiple data-actions-box="true" title="Todas las carreras">
         {% for i in c %}
         <option  value="{{ i.carrera }}">{{ i.carrera }}</option>
         {% endfor %}  
@@ -28,7 +28,7 @@
   </div>
 
   <div class="col-auto my-1">
-    <select class="selectpicker"  name="select_beneficio" id="select_beneficio" multiple data-selected-text-format="count>3"  data-width="fit" title="Todos los beneficios">
+    <select class="selectpicker"  name="select_beneficio" id="select_beneficio" multiple data-selected-text-format="count>2"  data-width="fit" multiple data-actions-box="true" title="Todos los beneficios">
         {% for i in b %}
           <option value="{{ i.tipo_beneficio }}">{{ i.tipo_beneficio }}</option>
         {% endfor %} 
@@ -36,7 +36,7 @@
   </div>
 
   <div class="col-auto my-1">
-    <select class="selectpicker" name="select_trimestre" id="select_trimestre" multiple data-selected-text-format="count>3" data-width="fit" title="Todos los trimestres" >
+    <select class="selectpicker" name="select_trimestre" id="select_trimestre" multiple data-selected-text-format="count>2" data-width="fit"  multiple data-actions-box="true" title="Todos los trimestres" >
         {% for i in t %}
         <option value="{{ i.trimestre }}">{{ i.trimestre }}</option>
       {% endfor %}  
@@ -68,25 +68,32 @@
 {% endcomment %}
 
 {% if  search %}
-      <div class="contenedor">
-          <div class="container">
-          <div class="row aux">
-              <div class="col-sm">Nombre</div>
-              <div class="col-sm">Cedula</div>
-              <div class="col-sm">Carrera</div>
-              <div class="col-sm">Tipo de beneficio</div>
-          </div>
-          {% for e in search  %}
-            <div class="row">
-              <div class="col-sm">{{e.cedula}}</div>
-              <div class="col-sm"> {{e.nombre}}</div>
-              <div class="col-sm">{{e.carrera}}</div>
-              <div class="col-sm">{{e.tipo_beneficio}}</div>
-              <a href="/DASE/more_info/{{e.cedula}}">+</a>
-            </div>
-            {% endfor %}
-          </div>
-      <div>
+
+<div class="divc">
+  <div class="table-striped text-center" >
+    <table class="table table-bordered">
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col">Cedula</th>
+          <th scope="col">Nombre</th>
+          <th scope="col">Carrera</th>
+          <th scope="col">Tipo de beneficio</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for e in search  %}
+          <tr>
+            <th scope="row"><a href="/DASE/more_info/{{e.cedula}}">{{e.cedula}}</a></th>
+            <td>{{e.nombre}}</td>
+            <td>{{e.carrera}}</td>
+            <td>{{e.tipo_beneficio}}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+  
 {% else %}
    {% if messages %}
         {% for message in messages %}

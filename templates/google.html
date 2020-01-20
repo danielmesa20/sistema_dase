@@ -14,26 +14,33 @@
   <div class="form-row justify-content-center">
 
    <div class="col-auto my-1">
-    <select class="selectpicker" name="primary" id="primary" title="Agrupar por:" data-width="fit" required>
-	  <option value="beneficio">Tipo de Beneficio</option>
+    <select  class="selectpicker" name="primary" id="primary" onchange="change_option()" title="Agrupar por: " data-width="fit" required>
+	  <option value="tipo_beneficio">Tipo de Beneficio</option>
 	  <option value="carrera">Carrera</option>
-	  <option value="materias"># materias inscritas</option>    
-	  <option value="indice">Indice academico</option> 
-	  <option value="departamento">Departamento</option>
     </select>
   </div>
 
   <div class="col-auto my-1">
-    <select class="selectpicker" name="secondary" id="secondary"  title="Filtrar por:" data-width="fit" multiple required></select>
+    <select class="selectpicker" name="secondary" id="secondary"  title="Filtrar por: " data-width="fit" multiple data-actions-box="true" data-selected-text-format="count>2" disabled></select>
+  </div>
+
+  <div class="col-auto my-1">
+    <select class="selectpicker" name="tipo_grafica" id="tipo_grafica"  title="Tipo de gráfica" data-width="fit" required>
+		<option value="BarChart">Gráfica de barra</option>
+		<option value="PieChart">Grafica de torta</option>
+	</select>
   </div>
 
    <div class="col-auto my-1">
     <input type="text" class="form-control" name="titulo" id="titulo" maxlength="100" placeholder="Titulo gráfico (opcional)">
   </div>
 
+  <div class="col-auto my-1">
+    <button type="submit" class="btn btn-info">+</button>
+  </div>
 
   <div class="col-auto my-1">
-    <button type="submit" class="btn btn-primary">Ver</button>
+    <button type="submit" class="btn btn-primary">Gráficar</button>
   </div>
 
   </div>
@@ -46,7 +53,7 @@
 
 		{% load googlecharts %}
 
-		{# container #}
+		{# container#}
 		<div id="out"></div>
 
 		{% googlecharts %}
@@ -58,12 +65,12 @@
 			{# you can also use global javascript variables here, #}
 			{# and call functions #}
 			{% options "out_options" %}
-				kind: "PieChart",
+				kind: "{{tipo_grafica}}",
 				options: {
-					title: '{{titulo}}',
+					title: "{{titulo}}",
 					width: 600,
 					height: 500,
-					is3D: {{dimension}},
+					is3D: "{{dimension}}",
 				}
 			{% endoptions %}
 			{# chart is assembled from container, data and options #}
