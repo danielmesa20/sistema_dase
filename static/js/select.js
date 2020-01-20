@@ -1,4 +1,3 @@
-
 var options = {
     tipo_beneficio : ["desempeño","honor","Excelencia academica"],
     carrera : ["ingenieria","Psicologia","Diseño"],
