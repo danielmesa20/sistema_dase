@@ -1,9 +1,10 @@
 from django.contrib import admin
-from DASE.models import beca_excelencia
+#from DASE.models import beca_excelencia
+
 #from import_export import resources
 #from import_export.admin import ImportExportModelAdmin
 
-#Register your models here.
+# Register your models here.
 
 # class becas_excelenciaResource(resources.ModelResource):
 #     class Meta:
@@ -16,6 +17,6 @@ from DASE.models import beca_excelencia
 
 # admin.site.register(beca_excelencia, becas_excelenciaAdmin)
 
-#Personalizacion admin site
+# Personalizacion admin site
 admin.site.site_header = "Sistema de control y gestión DASE"
 admin.site.site_title = "DASE"

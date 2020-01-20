@@ -15,11 +15,12 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from DASE.views import  home
+from DASE.views import home
 
 urlpatterns = [
     path('', home),
     path('admin/', admin.site.urls),
     path('DASE/', include('DASE.urls')),
     path('GRAPHICS/', include('graphics.urls')),
+    path('IMPORT/', include('export_import.urls')),
 ]

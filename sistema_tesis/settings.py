@@ -27,7 +27,6 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -41,7 +40,7 @@ INSTALLED_APPS = [
     'graphics',
     'googlecharts',
     'jquery',
-    #'import_export',
+    'export_import',
 ]
 
 MIDDLEWARE = [
@@ -74,18 +73,17 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'sistema_tesis.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
 DATABASES = {
-   'default': {
+    'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'base_tesis_2',
+        'NAME': 'DB_DASE',
         'USER': 'postgres',
         'PASSWORD': 'password',
         'HOST': '127.0.0.1',
-        'DATABASE_PORT':'5432'
+        'DATABASE_PORT': '5432'
     }
 }
 
@@ -127,7 +125,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR,'assets')
+STATIC_ROOT = os.path.join(BASE_DIR, 'assets')
 
 #MEDIA_URL = '/media/'
 #MEDIA_ROOT = os.path.abspath(os.path.join(BASE_DIR, '..', 'media'))

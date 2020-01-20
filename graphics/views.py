@@ -34,8 +34,7 @@ def graficas(request):
 
         # print(query)
 
-        data = estudiantes.objects.values(s1).filter(
-            query).annotate(cantidad=Count('cedula'))
+        data = estudiantes.objects.values(s1).filter(query).annotate(cantidad=Count('cedula'))
 
         v = []
 
@@ -50,7 +49,7 @@ def graficas(request):
         dimension = 'true'  # Si la grafica es 3D
 
         # return render(request, 'google.html', {'values': [['foo', 32], ['bar', 64], ['baz', 96]] })
-        return render(request, 'google.html', {'values': datos, 'titulo': t, 'dimension': dimension, 'tipo_grafica': s3})
+        return render(request, 'graficas.html', {'values': datos, 'titulo': t, 'dimension': dimension, 'tipo_grafica': s3})
 
     else:
-        return render(request, 'google.html')
+        return render(request, 'graficas.html')
