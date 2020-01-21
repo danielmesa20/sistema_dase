@@ -26,3 +26,17 @@
   margin-top: 35px;
   margin-bottom: 20px;
 }
+
+.contenedor_grafico {
+  justify-content: center;
+  align-items: center;
+  display: flex;
+}
+
+.options {
+  color: black !important;
+}
+
+.options:hover {
+  background: #eaeae1 !important;
+}

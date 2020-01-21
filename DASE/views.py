@@ -24,7 +24,7 @@ def busqueda(request):
     # Query para solicitar los valores que contendran  los select
     c = estudiantes.objects.values('carrera').distinct()
     b = estudiantes.objects.values('tipo_beneficio').distinct()
-    #t = estudiantes.objects.values('trimestre').distinct()
+    # t = estudiantes.objects.values('trimestre').distinct()
 
     if request.method == 'POST':
 
@@ -32,8 +32,11 @@ def busqueda(request):
         input_text = request.POST['data']
         s1 = request.POST.getlist('select_carrera')
         s2 = request.POST.getlist('select_beneficio')
-        #s3 = request.POST.getlist('select_trimestre')
+        # s3 = request.POST.getlist('select_trimestre')
         s4 = request.POST['select_order']
+
+        # Criterios de busqueda
+        lista = []
 
         # Inicializando variable donde se guardará el query
         query = Q()
@@ -46,15 +49,16 @@ def busqueda(request):
                     query |= Q(cedula=i)
                 elif (not i.isdigit() and i != ''):
                     query |= Q(nombre__icontains=i)
+                lista.append(i)
 
         if (s1):
             query &= Q(carrera__in=s1)
+            lista.append(", ".join(s1))
         if (s2):
             query &= Q(tipo_beneficio__in=s2)
+            lista.append(", ".join(s2))
         # if (s3):
         #     query &= Q(trimestre__in=s3)
-
-        print(query)
 
         # Solicitando los datos a la base de datos
         if(s4):
@@ -62,10 +66,16 @@ def busqueda(request):
         else:
             datos = estudiantes.objects.filter(query).order_by("cedula")
 
+        for i in lista:
+            if i == '':
+                lista.remove(i)
+
+        print(lista)
+
         # Si no se encentran resultados se muestra un mensaje al usuario
         if not datos:
             messages.info(
-                request, "No hay resultados que coincidan con su búsqueda")
+                request, "No hay resultados que coincidan con su búsqueda: %s " % (', '.join(lista)))
 
         return render(request, 'busqueda.html', {"c": c, "b": b, "search": datos})
 

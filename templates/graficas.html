@@ -13,31 +13,31 @@
 
   <div class="form-row justify-content-center">
 
-   <div class="col-auto my-1">
-    <select  class="selectpicker" name="primary" id="primary" onchange="change_option()" title="Agrupar por: " data-width="fit" required>
-	  <option value="tipo_beneficio">Tipo de Beneficio</option>
-	  <option value="carrera">Carrera</option>
-    </select>
-  </div>
+	<div class="col-auto my-1">
+		<select  class="selectpicker show-tick" name="primary" id="primary" onchange="change_option()" title="Agrupar por: " data-width="fit" data-live-search="true" required>
+			<option class="options"  value="tipo_beneficio">Tipo de Beneficio</option>
+			<option class="options"  value="carrera">Carrera</option>
+		</select>
+	</div>
 
-  <div class="col-auto my-1">
-    <select class="selectpicker" name="secondary" id="secondary"  title="Filtrar por: " data-width="fit" multiple data-actions-box="true" data-selected-text-format="count>2" disabled></select>
-  </div>
+	<div class="col-auto my-1">
+		<select class="selectpicker" name="secondary" id="secondary"  title="Filtrar por: " data-width="fit" multiple data-actions-box="true" data-selected-text-format="count>2" data-live-search="true" disabled></select>
+	</div>
 
-  <div class="col-auto my-1">
-    <select class="selectpicker" name="tipo_grafica" id="tipo_grafica"  title="Tipo de gráfica" data-width="fit" required>
-		<option value="BarChart">Gráfica de barra</option>
-		<option value="PieChart">Grafica de torta</option>
-	</select>
-  </div>
+  	<div class="col-auto my-1">
+    	<select class="selectpicker show-tick" name="tipo_grafica" id="tipo_grafica"  title="Tipo de gráfica" data-width="fit" required>
+			<option class="options"  value="BarChart">Gráfica de barra</option>
+			<option class="options"  value="PieChart">Grafica de torta</option>
+		</select>
+  	</div>
 
-   <div class="col-auto my-1">
-    <input type="text" class="form-control" name="titulo" id="titulo" maxlength="100" placeholder="Titulo gráfico (opcional)">
-  </div>
+  	<div class="col-auto my-1">
+    	<input type="text" class="form-control" name="titulo" id="titulo" maxlength="100" placeholder="Titulo gráfico (opcional)">
+  	</div>
 
-  <div class="col-auto my-1">
-    <button type="submit" class="btn btn-primary">Gráficar</button>
-  </div>
+ 	<div class="col-auto my-1">
+    	<button type="submit" class="btn btn-primary">Gráficar</button>
+  	</div>
 
   </div>
 
@@ -50,7 +50,7 @@
 		{% load googlecharts %}
 
 		{# container#}
-		<div id="out"></div>
+		<div class="contenedor_grafico" id="out"></div>
 
 		{% googlecharts %}
 			{# named data and options can be reused #}
@@ -64,13 +64,15 @@
 				kind: "{{tipo_grafica}}",
 				options: {
 					title: "{{titulo}}",
-					width: 600,
-					height: 500,
+					width: 800,
+					height: 600,
 					is3D: "{{dimension}}",
+					backgroundColor: 'white',
 				}
 			{% endoptions %}
 			{# chart is assembled from container, data and options #}
 			{% graph "out" "out_data" "out_options" %}
+
 		{% endgooglecharts %}
 
 	</div>
