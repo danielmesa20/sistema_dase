@@ -1,8 +1,5 @@
 from django.shortcuts import render
 
-# Mostrar mensajes en pantalla
-from django.contrib import messages
-
 # Models
 from DASE.models import estudiantes
 
@@ -34,7 +31,8 @@ def graficas(request):
 
         # print(query)
 
-        data = estudiantes.objects.values(s1).filter(query).annotate(cantidad=Count('cedula'))
+        data = estudiantes.objects.values(s1).filter(
+            query).annotate(cantidad=Count('cedula'))
 
         v = []
 

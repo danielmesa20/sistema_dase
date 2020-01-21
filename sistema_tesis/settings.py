@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'googlecharts',
     'jquery',
     'export_import',
+    'authentication'
 ]
 
 MIDDLEWARE = [

@@ -23,4 +23,5 @@ urlpatterns = [
     path('DASE/', include('DASE.urls')),
     path('GRAPHICS/', include('graphics.urls')),
     path('IMPORT/', include('export_import.urls')),
+    path('AUTH/', include('authentication.urls')),
 ]

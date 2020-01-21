@@ -4,7 +4,7 @@
   "auto-close-tag.enableAutoCloseSelfClosingTag": true,
   "auto-close-tag.activationOnLanguage": ["*"],
   "editor.autoIndent": "full",
-  "editor.fontSize": 15,
+  "editor.fontSize": 14,
   "editor.lineHeight": 20,
   "editor.letterSpacing": 0.3,
   "html.format.enable": true,

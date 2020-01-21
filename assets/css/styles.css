@@ -10,13 +10,21 @@
   padding: 20px;
 }
 
-/* NAVBAR */
+/* Navbar 
+.navbar {
+  background-color: #ff8000 !important;
+}
+*/
+
 .navbar a {
   margin-right: 25px;
+  color: black;
+  background-color: #1565cc;
+  color: gold;
 }
 
 .navbar a:hover {
-  color: #3366ff !important;
+  color: red !important;
 }
 
 /* Titulo principal de cada pagina*/

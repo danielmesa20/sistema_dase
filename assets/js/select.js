@@ -1,26 +1,22 @@
-
 var options = {
-  color : ["red","green","blue"],
-  country : ["Spain","Germany","France"]
-}
+    tipo_beneficio : ["desempeño","honor","Excelencia academica"],
+    carrera : ["ingenieria","Psicologia","Diseño"],
+    materias : ["1","2","3","4","5"],
+    indice : ["10","11","12"],
+    departamento:  ["Ingenieria","Matematicas","Humanidades"],
+    trimestre: ["1","2","3"],
+  }
 
-$(document).ready(function(){
+function change_option() {
 
-  console.log("entre");
+    var selected = $("#primary").val();
+   
+    $("#secondary").prop("disabled", false);
+    $('#secondary').empty();
 
-    var fillSecondary = function(){
-
-      var selected = $('#primary').val();
-
-      $('#secondary').empty();
-
-      options[selected].forEach(function(element, index){
+    options[selected].forEach(function(element,index){
         $('#secondary').append('<option value="'+element+'">'+element+'</option>');
-      });
-      
-    }
+    });
 
-    $('#primary').change(fillSecondary);
-    fillSecondary();
-    
-});
+    $('#secondary').selectpicker('refresh');
+}

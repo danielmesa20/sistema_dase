@@ -3,6 +3,11 @@ from django.shortcuts import render
 # Usar objectos "Q"
 from django.db.models import Q
 
+
+# Mostrar mensajes en pantalla
+from django.contrib import messages
+
+
 # Models
 from DASE.models import estudiantes
 
@@ -19,7 +24,7 @@ def busqueda(request):
     # Query para solicitar los valores que contendran  los select
     c = estudiantes.objects.values('carrera').distinct()
     b = estudiantes.objects.values('tipo_beneficio').distinct()
-    t = estudiantes.objects.values('trimestre').distinct()
+    #t = estudiantes.objects.values('trimestre').distinct()
 
     if request.method == 'POST':
 
@@ -27,7 +32,7 @@ def busqueda(request):
         input_text = request.POST['data']
         s1 = request.POST.getlist('select_carrera')
         s2 = request.POST.getlist('select_beneficio')
-        s3 = request.POST.getlist('select_trimestre')
+        #s3 = request.POST.getlist('select_trimestre')
         s4 = request.POST['select_order']
 
         # Inicializando variable donde se guardará el query
@@ -46,8 +51,8 @@ def busqueda(request):
             query &= Q(carrera__in=s1)
         if (s2):
             query &= Q(tipo_beneficio__in=s2)
-        if (s3):
-            query &= Q(trimestre__in=s3)
+        # if (s3):
+        #     query &= Q(trimestre__in=s3)
 
         print(query)
 
@@ -62,10 +67,10 @@ def busqueda(request):
             messages.info(
                 request, "No hay resultados que coincidan con su búsqueda")
 
-        return render(request, 'busqueda.html', {"c": c, "b": b, "t": t, "search": datos})
+        return render(request, 'busqueda.html', {"c": c, "b": b, "search": datos})
 
     else:
-        return render(request, 'busqueda.html', {"c": c, "b": b, "t": t})
+        return render(request, 'busqueda.html', {"c": c, "b": b})
 
 
 def more_info(request, cedula):
