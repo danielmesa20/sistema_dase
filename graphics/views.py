@@ -6,7 +6,11 @@ from DASE.models import estudiantes
 from django.db.models import Sum, Count
 from django.db.models import Q
 
+# Verificar que el usuario esta logueado
+from django.contrib.auth.decorators import login_required
 
+
+@login_required
 def graficas(request):
 
     if request.method == 'POST':

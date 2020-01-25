@@ -31,8 +31,8 @@ class indices(models.Model):
     id = models.AutoField(primary_key=True)
     cedula_fk = models.ForeignKey(estudiantes, on_delete=models.CASCADE)
     trimestre = models.CharField(max_length=100)
-    iaa = models.IntegerField()
-    iap = models.IntegerField()
+    iaa = models.FloatField()
+    iap = models.FloatField()
 
 
 # Relacion many to many: aportantes con estudiantes

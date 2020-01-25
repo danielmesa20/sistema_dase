@@ -9,16 +9,24 @@ from django.contrib import messages
 
 
 # Models
-from DASE.models import estudiantes
+from DASE.models import estudiantes, indices
 
 # Verificacion de datos del excel
 import math
 
+#Verificar que el usuario esta logueado
+from django.contrib.auth.decorators import login_required
 
+
+@login_required
 def home(request):
-    return render(request, 'home.html')
+    if request.user.is_authenticated:
+        return render(request, 'home.html')
+    else:
+        return render(request, 'login.html')
 
 
+@login_required
 def busqueda(request):
 
     # Query para solicitar los valores que contendran  los select
@@ -62,9 +70,9 @@ def busqueda(request):
 
         # Solicitando los datos a la base de datos
         if(s4):
-            datos = estudiantes.objects.filter(query).order_by(s4)
+            datos = estudiantes.objects.values('nombre','cedula','tipo_beneficio','carrera').filter(query).order_by(s4)
         else:
-            datos = estudiantes.objects.filter(query).order_by("cedula")
+            datos = estudiantes.objects.values('nombre','cedula','tipo_beneficio','carrera').filter(query).order_by("cedula")
 
         for i in lista:
             if i == '':
@@ -83,7 +91,27 @@ def busqueda(request):
         return render(request, 'busqueda.html', {"c": c, "b": b})
 
 
+from django.contrib.auth.decorators import login_required
+
+
+@login_required
 def more_info(request, cedula):
+
     # Busca toda la información relacionada con el estudiante solicitado
-    estudiante = estudiantes.objects.filter(cedula=cedula)
-    return render(request, 'more_info.html', {"estudiante": estudiante})
+    #estudiante = estudiantes.objects.filter(cedula=cedula)
+    student_test = indices.objects.select_related(
+         'cedula_fk').filter(cedula_fk=cedula) #.values('iaa','iap','trimestre')
+
+    #print(str(estudiante_test.query))
+    #print(estudiante_test[0].cedula_fk.nombre)
+    #print(estudiante_test.cedula_fk.nombre)
+
+    n  =  student_test[0].cedula_fk.nombre
+    c  =  student_test[0].cedula_fk.cedula
+    b  =  student_test[0].cedula_fk.cedula
+    cr = student_test[0].cedula_fk.carrera
+    
+    # for i in estudiante_test:
+    #    print(i.cedula_fk.nombre)
+
+    return render(request, 'more_info.html', {"name": n, "cedula": c, "beneficio":b, "carrera":cr, "indices": student_test })

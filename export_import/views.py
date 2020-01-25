@@ -8,7 +8,10 @@ from django.contrib import messages
 
 # IMPORTAR DATOS DEL ARCHIVO DE EXCEL A LA BASE DE DATOS
 
+from django.contrib.auth.decorators import login_required
 
+
+@login_required
 def import_excel(request):
 
     if request.method == 'POST':

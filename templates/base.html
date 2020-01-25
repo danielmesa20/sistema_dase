@@ -22,7 +22,10 @@
 <body>
 
      <!-- Incluir la navbar -->
-    {% include  'navbar.html' %}
+    {% if user.is_authenticated %}
+         {% include  'navbar.html' %}
+    {% endif %}
+   
 
     <!-- Incluir contenido variable -->
     {% block content %} {% endblock %}

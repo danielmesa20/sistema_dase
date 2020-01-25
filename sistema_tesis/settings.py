@@ -134,3 +134,6 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'assets')
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static')
 ]
+
+# RUTA POR DEFECTO SI EL USUARIO NO ESTA LOGUEADO
+LOGIN_URL = '/AUTH/LOGIN'

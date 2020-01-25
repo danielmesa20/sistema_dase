@@ -21,7 +21,7 @@
     <br><br/>
     {% endif %}
 
-    <form action="LOGIN" method="post" class="col-md-4 m-auto">
+    <form action="/AUTH/LOGIN" method="post" class="col-md-4 m-auto align-middle">
 
     {% csrf_token %}
 
@@ -38,6 +38,10 @@
         </div>
 
         <button type="submit" class="btn btn-primary btn-md btn-block">Entrar</button>
+
+        <a class="btn btn-warning btn-md btn-block" href="#" role="button">Olvide mi contraseña</a>
+
+        <a class="btn btn-info btn-md btn-block" href="/AUTH/REGISTER" role="button">Registrarme</a>
 
     </form>
 

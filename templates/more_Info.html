@@ -16,12 +16,35 @@
         </tr>
       </thead>
       <tbody>
-        {% for i in estudiante  %}
           <tr>
-            <td>{{i.cedula}}</td>
-            <td>{{i.nombre}}</td>
-            <td>{{i.carrera}}</td>
-            <td>{{i.tipo_beneficio}}</td>
+            <td>{{cedula}}</td>
+            <td>{{name}}</td>
+            <td>{{carrera}}</td>
+            <td>{{beneficio}}</td>
+          </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<h1 class="subtitulo">Datos académicos</h1>
+
+<div class="divc">
+  <div class="table-striped text-center" >
+    <table class="table table-bordered">
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col">Trimestre</th>
+          <th scope="col">IAA</th>
+          <th scope="col">IAP</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for i in indices  %}
+          <tr>
+            <td>{{i.trimestre}}</td>
+            <td>{{i.iaa}}</td>
+            <td>{{i.iap}}</td>
           </tr>
         {% endfor %}
       </tbody>

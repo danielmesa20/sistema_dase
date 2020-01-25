@@ -27,12 +27,22 @@
   margin-bottom: 20px;
 }
 
+/* Subtitulo */
+.subtitulo {
+  text-align: center;
+  font-size: 30px;
+  margin-top: 25px;
+  margin-bottom: 20px;
+}
+
+/* Contenedor que muestra los graficos */
 .contenedor_grafico {
   justify-content: center;
   align-items: center;
   display: flex;
 }
 
+/* Estilo selects */
 .options {
   color: black !important;
 }
