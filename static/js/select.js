@@ -16,6 +16,7 @@ var options = {
   trimestre: ["1", "2", "3"]
 };
 
+/*
 function change_option() {
   var selected = $("#primary").val();
 
@@ -30,3 +31,5 @@ function change_option() {
 
   $("#secondary").selectpicker("refresh");
 }
+
+*/

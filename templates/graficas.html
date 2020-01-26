@@ -14,14 +14,42 @@
   <div class="form-row justify-content-center">
 
 	<div class="col-auto my-1">
-		<select  class="selectpicker show-tick" name="primary" id="primary" onchange="change_option()" title="Agrupar por: " data-width="fit" data-live-search="true" required>
+		<select  class="selectpicker show-tick" name="group" id="group" onchange="change_option()" title="Agrupar por: " data-width="fit" data-live-search="true" required>
 			<option class="options"  value="tipo_beneficio">Tipo de Beneficio</option>
 			<option class="options"  value="carrera">Carrera</option>
 		</select>
 	</div>
 
 	<div class="col-auto my-1">
-		<select class="selectpicker" name="secondary" id="secondary"  title="Filtrar por: " data-width="fit" multiple data-actions-box="true" data-selected-text-format="count>2" data-live-search="true" disabled></select>
+		<select class="selectpicker" name="select_carreras" id="select_carreras"  title="Carreras" data-width="fit" multiple data-actions-box="true" data-selected-text-format="count>1" data-live-search="true"  data-size="5">
+			<option class="options"  value="all">Todas</option>
+			<option class="options"  value="Ingeniería Eléctrica">Ingeniería Eléctrica</option>
+			<option class="options"  value="Ingeniería de Sistemas">Ingeniería de Sistemas</option>
+			<option class="options"  value="Economía Empresarial">Economía Empresarial</option>
+			<option class="options"  value="Ingeniería Mecánica">Ingeniería Mecánica</option>
+			<option class="options"  value="Ingeniería Civil">Ingeniería Civil</option>
+			<option class="options"  value="Ingeniería Química">Ingeniería Química</option>
+		</select>
+	</div>
+
+	<div class="col-auto my-1">
+		<select class="selectpicker" name="select_beneficios" id="select_beneficios"  title="Beneficios" data-width="fit" multiple data-actions-box="true" data-selected-text-format="count>1" data-live-search="true">
+			<option class="options"  value="Excelencia Deportiva">Excelencia Deportiva</option>
+			<option class="options"  value="Excelencia Compromiso Cívico">Excelencia Compromiso Cívico</option>
+			<option class="options"  value="Excelencia Académica">Excelencia Académica</option>
+		</select>
+	</div>
+
+	<div class="col-auto my-1">
+		<select class="selectpicker" name="select_indice" id="select_indice"  title="Indice" data-width="fit" multiple data-actions-box="true" data-selected-text-format="count>1" data-live-search="true">
+			<option class="options"  value="Excelencia Deportiva">10-11</option>
+			<option class="options"  value="Excelencia Compromiso Cívico">11-12</option>
+			<option class="options"  value="Excelencia Académica">12-13</option>
+		</select>
+	</div>
+
+	<div class="col-auto my-1">
+		<select class="selectpicker" name="select_trimestres" id="secondary"  title="Trimestre" data-width="fit" multiple data-actions-box="true" data-selected-text-format="count>1" data-live-search="true"></select>
 	</div>
 
   	<div class="col-auto my-1">
@@ -32,7 +60,7 @@
   	</div>
 
   	<div class="col-auto my-1">
-    	<input type="text" class="form-control" name="titulo" id="titulo" maxlength="100" placeholder="Titulo gráfico (opcional)">
+    	<input type="text" class="form-control" name="titulo" id="titulo" maxlength="30" placeholder="Titulo gráfico (opcional)">
   	</div>
 
  	<div class="col-auto my-1">
@@ -75,6 +103,21 @@
 
 		{% endgooglecharts %}
 
+	</div>
+
+{% else %}
+
+	<div class="mensajes"> 
+		<ul class="messages">
+				{% for message in messages %}
+					<div class="alert alert-warning alert-dismissible fade show col-md-3 m-auto" role="alert">
+						<strong>  {{message}} </strong>
+						<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+			{% endfor %}
+    	</ul>
 	</div>
 
 {% endif %}

@@ -31,7 +31,7 @@ def REGISTER(request):
             messages.info(request, 'Las contraseñas no coinciden')
             return redirect('REGISTER')
     else:
-        return render(request, 'register.html')
+        return render(request, 'auth/register.html')
 
 
 def LOGIN(request):
@@ -49,9 +49,9 @@ def LOGIN(request):
             messages.info(request, "Error en las credenciales")
             return redirect("LOGIN")
     else:
-        return render(request, 'login.html')
+        return render(request, 'auth/login.html')
 
 
 def LOGOUT(request):
     auth.logout(request)
-    return render(request, 'login.html')
+    return render(request, 'auth/login.html')

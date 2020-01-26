@@ -20,11 +20,7 @@ from django.contrib.auth.decorators import login_required
 
 @login_required
 def home(request):
-    if request.user.is_authenticated:
         return render(request, 'home.html')
-    else:
-        return render(request, 'login.html')
-
 
 @login_required
 def busqueda(request):
@@ -78,17 +74,17 @@ def busqueda(request):
             if i == '':
                 lista.remove(i)
 
-        print(lista)
+        #print(lista)
 
         # Si no se encentran resultados se muestra un mensaje al usuario
         if not datos:
             messages.info(
                 request, "No hay resultados que coincidan con su búsqueda: %s " % (', '.join(lista)))
 
-        return render(request, 'busqueda.html', {"c": c, "b": b, "search": datos})
+        return render(request, 'search/busqueda.html', {"c": c, "b": b, "search": datos})
 
     else:
-        return render(request, 'busqueda.html', {"c": c, "b": b})
+        return render(request, 'search/busqueda.html', {"c": c, "b": b})
 
 
 from django.contrib.auth.decorators import login_required
@@ -114,4 +110,4 @@ def more_info(request, cedula):
     # for i in estudiante_test:
     #    print(i.cedula_fk.nombre)
 
-    return render(request, 'more_info.html', {"name": n, "cedula": c, "beneficio":b, "carrera":cr, "indices": student_test })
+    return render(request, 'search/more_info.html', {"name": n, "cedula": c, "beneficio":b, "carrera":cr, "indices": student_test })

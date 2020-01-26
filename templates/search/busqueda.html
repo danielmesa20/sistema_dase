@@ -6,7 +6,6 @@
 
 <h1 class="titulo">BÚSQUEDA DE DATOS</h1>
 
-
 <div class="divc">
 
 <form action="busqueda" method="POST" class="col-md m-auto ">
@@ -93,9 +92,18 @@
   
 {% else %}
    {% if messages %}
-        {% for message in messages %}
-            <h1 class="mensajes">{{message}}</h1>
-        {% endfor %}
+        <div class="mensajes"> 
+          <ul class="messages">
+              {% for message in messages %}
+                <div class="alert alert-warning alert-dismissible fade show col-md-auto m-auto" role="alert">
+                  <strong>  {{message}} </strong>
+                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+            {% endfor %}
+        	</ul>
+	      </div>
     {% endif %}
 {% endif %}
 
